@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="amcharts/amcharts.js" type="text/javascript"></script>
+<script src="amcharts/serial.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+        <title>DataMiners</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+        
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+
+
+
+
+
+
+
+
+
+        <!-- CSS code from Bootply.com editor -->
+        
+        <style type="text/css">
+            body {
+  padding-top: 50px;
+}
+
+        </style>
+    </head>
+    
+    <!-- HTML code from Bootply.com editor -->
+    
+    <body  >
+    
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    
+<div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" rel="home" href="index.html">DataMiners</a>
+    </div>
+    
+     <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+            <li><a href="HVAC.html">HVAC</a></li>
+            <li><a href="Broiler.html">Broiler</a></li>
+            <li><a href="Frier.html">Frier</a></li>
+            <li><a href="Water.html">Water Heater</a></li>
+          </ul>
+    </div>
+</div>
+    
+    <div class="collapse navbar-collapse">
+        
+        <ul class="nav navbar-nav">
+
+
+        </div>
+        
+    </div>
+</div>
+
+<div class="container">
+  
+  <div class="text-center">
+    <h1>HVAC Load</h1>
+  </div>
+</div>
+  <div id="chartdiv" style="width: 1660px; height: 400px;">
+        
+        <script type="text/javascript">
+
+var chartData = generateChartData();
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "pathToImages": "http://www.amcharts.com/lib/3/images/",
+    "dataProvider": chartData,
+    "valueAxes": [{
+        "id": "g1",
+        "axisAlpha": 0.2,
+        "dashLength": 1,
+        "position": "left"
+    },{
+        "id": "g2",
+        "axisAlpha": 0.2,
+        "dashLength": 1,
+        "position": "left"
+    }],
+ "graphs": [{
+        "valueAxes":"g1",
+        "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>actual: [[value]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+    "bulletColor":"#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "red line",
+        "valueField": "visits",
+    "useLineColorForBulletBorder":true
+    },{
+        "valueAxes":"g2",
+        "balloonText": "[[category]]<br /><b><span style='font-size:14px;'>temperature*25: [[estimate]]</span></b>",
+        "bullet": "round",
+        "bulletBorderAlpha": 1,
+    "bulletColor":"#FFFFFF",
+        "hideBulletsCount": 50,
+        "title": "red line",
+        "valueField": "estimate",
+    "useLineColorForBulletBorder":true
+    }],
+    "chartScrollbar": {
+        "autoGridCount": true,
+        "graph": "g1",
+        "scrollbarHeight": 40
+    },
+    "chartCursor": {
+        "cursorPosition": "mouse"
+    },
+    "categoryField": "date",
+    "categoryAxis": {
+        "parseDates": true,
+        "axisColor": "#DADADA",
+        "dashLength": 1,
+        "minorGridEnabled": true
+    },
+  "exportConfig":{
+    menuRight: '20px',
+      menuBottom: '30px',
+      menuItems: [{
+      icon: 'http://www.amcharts.com/lib/3/images/export.png',
+      format: 'png'   
+      }]  
+  }
+});
+
+chart.addListener("rendered", zoomChart);
+zoomChart();
+
+// this method is called when chart is first inited as we listen for "dataUpdated" event
+function zoomChart() {
+    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+    chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
+}
+
+
+// generate some random data, quite different range
+function generateChartData() {
+    var chartData = [];
+    var firstDate = new Date("January 1, 2011 00:00:00");
+    firstDate.setDate("1");
+
+    for (var i = 0; i < 1096; i=i+7) {
+        // we create date objects here. In your data, you can have date strings
+        // and then set format of your dates using chart.dataDateFormat property,
+        // however when possible, use date objects, as this will speed up chart rendering.
+        var newDate = new Date(firstDate);
+        newDate.setDate(newDate.getDate() + i);
+
+        var visits = 100;
+
+        var j = i/7;
+        var g = [
+1522.5,
+2259.3,
+1564.7,
+1739.9,
+1304,
+1481.8,
+1241.6,
+986.4,
+1098.7,
+933.5,
+987.7,
+965.5,
+1180.5,
+1098,
+962.5,
+1328,
+1922.6,
+1260.2,
+1449.9,
+1615.5,
+2432.2,
+2505.3,
+2427.8,
+2316.8,
+2933.1,
+2720.9,
+2770.2,
+2782.5,
+2757.1,
+2940.4,
+3080.7,
+3122.4,
+2453.3,
+2350.8,
+1632.1,
+1760,
+1519.6,
+1236.7,
+1495.2,
+810.2,
+1044.9,
+1005.8,
+794.3,
+833.9,
+810,
+974.5,
+901.4,
+954.7,
+894.9,
+1063.6,
+756.7,
+732.3,
+1192.3,
+879.2,
+1287.4,
+1020.5,
+1109.8,
+1201.3,
+1312.7,
+1066,
+1032.6,
+1029.3,
+1193.5,
+1163.6,
+963.3,
+868.3,
+906.3,
+1458.8,
+1172.6,
+1824.8,
+1602.2,
+1597.6,
+1799.6,
+2231.7,
+1461.8,
+1646.5,
+1732.1,
+1987.4,
+3224.6,
+2949.9,
+2885.6,
+3113.6,
+2566.3,
+2699.8,
+2677.7,
+2211.7,
+2198.1,
+2681.5,
+1758.6,
+1811.8,
+1588.6,
+1973.3,
+1089.7,
+1255.2,
+1196.3,
+812.5,
+1161.6,
+1089.7,
+960,
+1315.3,
+1046.1,
+1140.8,
+975.1,
+1241.6,
+1376.6,
+1239.2,
+1215.3,
+1720.7,
+1451.8,
+1301.3,
+1117.2,
+1625.1,
+1159.5,
+1459.6,
+1175.4,
+1099.4,
+1330.7,
+947.3,
+1476.7,
+1303.8,
+938.5,
+987.5,
+1235,
+1627.2,
+1968.9,
+1676.2,
+2202.9,
+2668.5,
+2159.4,
+2583.8,
+2648,
+2705,
+2790.6,
+2773.8,
+2434.2,
+2413.9,
+2330.4,
+2314.4,
+2079.5,
+2493.4,
+2200.3,
+1620.4,
+1402.1,
+1475.8,
+1281.9,
+1238.8,
+949.2,
+1227.9,
+961.5,
+1287.4,
+1139.6,
+1381.9,
+1120.9,
+1264.3,
+1051.4,
+1271.5]
+
+        var visits = g[j];
+
+
+var h = [45.02738095,
+32.60892857,
+41.72857143,
+39.22678571,
+47.38154762,
+42.71964286,
+50.07559524,
+55.51130952,
+53.30595238,
+53.58333333,
+57.62321429,
+62.51547619,
+47.45595238,
+60.87559524,
+63.23630952,
+66.92797619,
+73.56071429,
+64.48452381,
+67.63392857,
+69.45357143,
+77.89285714,
+78.76190476,
+78.41904762,
+78.23928571,
+83.59702381,
+80.82619048,
+81.61130952,
+80.87619048,
+81.24821429,
+82.27738095,
+83.91309524,
+84.46964286,
+78.35535714,
+78.53392857,
+76.15654762,
+77.86369048,
+74.52559524,
+70.94642857,
+74.93214286,
+61.1202381,
+70.20595238,
+65.19285714,
+61.04880952,
+52.77321429,
+56.36845238,
+58.98333333,
+59.47142857,
+53.2077381,
+56.16666667,
+50.73809524,
+55.89285714,
+49.3797619,
+46.12142857,
+53.75952381,
+46.37202381,
+57.02857143,
+52.04047619,
+48.6702381,
+46.63333333,
+55.77261905,
+56.2952381,
+54.24583333,
+60.09107143,
+66.7797619,
+64.71369048,
+63.36845238,
+58.40119048,
+67.61666667,
+63.29345238,
+72.48630952,
+70.45595238,
+70.2,
+71.71369048,
+76.9047619,
+70.43214286,
+74.59047619,
+74.69583333,
+77.57261905,
+84.6297619,
+81.87619048,
+82.36845238,
+85.31488095,
+79.26845238,
+80.1125,
+80.88988095,
+75.9797619,
+75.87857143,
+80.39345238,
+72.175,
+73.24345238,
+70.00416667,
+74.01071429,
+62.67797619,
+64.00714286,
+62.92559524,
+54.91547619,
+48.40833333,
+53.86547619,
+52.07738095,
+45.31666667,
+55.58809524,
+56.41547619,
+55.03095238,
+47.83869048,
+45.25357143,
+50.37261905,
+61.70178571,
+41.6422619,
+48.54583333,
+47.46190476,
+50.94880952,
+42.85416667,
+49.70119048,
+44.90595238,
+51.86785714,
+53.12440476,
+46.33928571,
+55.01964286,
+65.02083333,
+66.29047619,
+58.06011905,
+63.46904762,
+66.1547619,
+70.62261905,
+73.7452381,
+68.89583333,
+75.36428571,
+79.3625,
+74.92797619,
+78.00297619,
+78.79940476,
+78.87738095,
+80.18571429,
+79.51011905,
+78.06785714,
+78.44464286,
+77.7875,
+77.00654762,
+75.66904762,
+79.39166667,
+77.00892857,
+70.75595238,
+68.60892857,
+69.12083333,
+67.74107143,
+68.44880952,
+60.6375,
+61.25833333,
+58.94404762,
+49.25297619,
+60.87321429,
+46.60833333,
+56.33095238,
+47.99345238,
+51.33214286,
+54.24107143]
+
+var estimate = h[j]*25;
+
+        chartData.push({
+            date: newDate,
+            visits: visits,
+            estimate:estimate
+
+        });
+    }
+    return chartData;
+}
+
+
+
+</script>
+
+
+
+  </div>
+
+</div><!-- /.container -->
+        
+        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+
+
+        <script type='text/javascript' src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+
+
+
+        
+        <!-- JavaScript jQuery code from Bootply.com editor -->
+        
+        <script type='text/javascript'>
+        
+        $(document).ready(function() {
+        
+            
+        
+        });
+        
+        </script>
+        
+    </body>
+</html>
