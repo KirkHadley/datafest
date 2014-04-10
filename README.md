@@ -1,6 +1,3 @@
-datafest
+Emory University DataFest 2014 
 ========
-
-Emory University DataFest 2014 -- First Overall &amp; Best Visualization
-========
-App here: mutianzhai.com
+- First place overall and winner, best visualization. See the app here: mutianzhai.com
